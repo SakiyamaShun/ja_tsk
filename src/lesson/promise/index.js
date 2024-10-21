@@ -45,10 +45,6 @@ const returnPromise = () => {
 };
 
 //returnされるのはPromiseオブジェクトなので、そのPromiseオブジェクトを呼び出す
-// returnPromise.catch(err => {
-//   console.log(Promise);
-// });
-
 //returnPromiseは()=空という引数になっているため、呼び出すときも"()"をつけてオブジェクトにする
 //rejectの中身がdataに入る
 returnPromise().catch((data) => 

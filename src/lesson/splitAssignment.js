@@ -34,7 +34,7 @@ const [test01, test02, test03] = arrayFn('テスト');
 console.log(test03);
 
 // 問題 2
-function objectFn() {
+function objectFn({name: S5_Q2}) {
   console.log(S5_Q2);
 }
 
@@ -43,6 +43,16 @@ const argObject = {
   place: 'Shibuya',
 };
 
-const {name: S5_Q2} = argObject;
+// const {name: S5_Q2} = argObject;
 
 objectFn(argObject);
+
+
+// メモ：引数の確認
+// const test = (arg) => {
+//  console.log(arg);
+// };
+
+// test(6);
+
+// arg = 6

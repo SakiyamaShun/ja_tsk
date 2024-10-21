@@ -20,11 +20,12 @@ const card_yellow = document.querySelector('article.card-type--yellow');
 
 button.addEventListener('click', () => {
   title.classList.add('animate__hinge');
-  card_yellow.classList.add('animate__fadeInUp');  //yellowカードにアニメーション追加
+  
 
   setTimeout(() => {
     title.classList.remove('animate__hinge');
     card_mocha.classList.add('card-animation');  //mochaカードにアニメーション追加
+    card_yellow.classList.add('animate__fadeInUp');  //yellowカードにアニメーション追加
     card_yellow.style.display = '';  //yellowカードのdisplay:noneを解除
   }, 2000);
 });
