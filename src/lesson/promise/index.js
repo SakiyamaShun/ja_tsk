@@ -36,16 +36,28 @@
 // 練習問題
 // 問題 1
 // return new Promiseは何を返している？
-const returnPromise = () => {
-  return new Promise((_resolve, reject) => {
+// const returnPromise = () => {
+//   return new Promise((_resolve, reject) => {
+//     setTimeout(() => {
+//       reject('エラーが発生しました！');
+//     }, 3000);
+//   });
+// };
+//returnされるのはPromiseオブジェクトなので、そのPromiseオブジェクトを呼び出す
+//returnPromiseは()=空という引数になっているため、呼び出すときも"()"をつけてオブジェクトにする
+//rejectの中身がdataに入る
+// returnPromise().catch((data) => 
+//   console.log(data));
+
+
+// resolveバージョン
+const returnResolve = () => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      reject('エラーが発生しました！');
+      resolve('成功しました！');
     }, 3000);
   });
 };
 
-//returnされるのはPromiseオブジェクトなので、そのPromiseオブジェクトを呼び出す
-//returnPromiseは()=空という引数になっているため、呼び出すときも"()"をつけてオブジェクトにする
-//rejectの中身がdataに入る
-returnPromise().catch((data) => 
+returnResolve().then((data) => 
   console.log(data));

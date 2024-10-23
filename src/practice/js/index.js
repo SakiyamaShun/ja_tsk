@@ -2,81 +2,87 @@
 import axios from 'axios';
 import { createErrorElement } from './createElement.js';
 
+// // HTMLのパース（解析）が完了したら実行される
 window.addEventListener('DOMContentLoaded', () => {
   // ポケモンの画像と名前表示する要素
   const characterElement = document.getElementById('list');
 // リクエスト①：すべてのポケモンを取得リクエスト
   axios.get('https://pokeapi.co/api/v2/pokemon/?limit=151').then(({data}) => {
 
-    // ポケモンの数(151回)分、以下の処理を繰り返す
-    for(let i =0; i < data.results.length; i++) {
+    console.log(data);
 
       // 以下3行はforEachを使う場合の処理
       // data.results.forEach(element => {
         // console.log(element);
         // const pokemonData = element.url;
 
-    // 詳細情報のリクエスト先URL ※forEachの場合ここもコメントアウト
-    const pokemonUrl = data.results[i].url;
+    // ポケモンの数(151回)分、以下の処理を繰り返す
+    // for(let i =0; i < data.results.length; i++) {
 
-    // リクエスト②：ポケモンの詳細情報を取得リクエスト
-  axios.get(pokemonUrl).then(({data}) => {
+    // 詳細情報のリクエスト先URL 
+    // const pokemonUrl = data.results[i].url;
 
-    // ポケモンの画像URLを代入
-    const imgPath = data.sprites.other['official-artwork'].front_default;
+    data.results.map(value => {
 
-    // 日本語訳リクエスト先URL
-    const jaRequestUrl = data.species.url;
+      const pokemonUrl = value.url;
 
-  // リクエスト③：日本語訳を取得リクエスト
-  axios.get(jaRequestUrl).then(({data}) => {
+      // リクエスト②：ポケモンの詳細情報を取得リクエスト
+      axios.get(pokemonUrl).then(({data}) => {
 
-    // ポケモン名の日本語訳
-    const characterName = data.names[0].name;
+        // ポケモンの画像URLを代入
+        const imgPath = data.sprites.other['official-artwork'].front_default;
 
-    // <li>タグを追加
-    let newLi = document.createElement("li");
+        // 日本語訳リクエスト先URL
+        const jaRequestUrl = data.species.url;
 
-    // <li>タグにクラス名を付ける
-    newLi.className ="list-item";
+        // リクエスト③：日本語訳を取得リクエスト
+        axios.get(jaRequestUrl).then(({data}) => {
 
-    // 画像のHTML要素の文字列を代入
-    let imgElement = `<div class="character">
-                        <img src = "${imgPath}" width="475" height="475" alt="" class="character__img">
-                      </div>
-                      <p class="character__name">${characterName}</p>`;
+          // ポケモン名の日本語訳
+          const characterName = data.names[0].name;
 
-    newLi.innerHTML = imgElement;
+          // <li>タグを追加
+          let newLi = document.createElement("li");
 
-    // 作成したHTML要素をDOMに反映
-    characterElement.appendChild(newLi);
+          // <li>タグにクラス名を付ける
+          newLi.className ="list-item";
 
-  // リクエスト③に失敗した場合のエラー処理
-  }).catch(() => {
+          // 画像のHTML要素の文字列を代入
+          let imgElement = `<div class="character">
+                              <img src = "${imgPath}" width="475" height="475" alt="" class="character__img">
+                            </div>
+                            <p class="character__name">${characterName}</p>`;
 
-    createErrorElement('表記エラーが発生しました。時間をおいて再度お試しください。')
-  });
+          // liタグの中にdivタグ、pタグを追加している
+          newLi.innerHTML = imgElement;
 
-  // リクエスト②に失敗した場合のエラー処理
-  }).catch(() => {
+          // 作成したHTML要素をDOMに反映
+          characterElement.appendChild(newLi);
 
-    createErrorElement('エラーが発生しました。時間をおいて再度お試しください。');
-  });
-    } // forの終わり
+        // リクエスト③に失敗した場合のエラー処理
+        }).catch(() => {
+          characterElement.after(createErrorElement('日本語訳の取得に失敗しました。'));
+        });
+
+    // リクエスト②に失敗した場合のエラー処理
+      }).catch(() => {
+        characterElement.after(createErrorElement('詳細情報の取得に失敗しました。'));
+      });
+    // } // forの終わり
     //}); // forEacheの終わり
+  });
 
-  // リクエスト①に失敗した場合のエラー処理
+        // リクエスト①に失敗した場合のエラー処理
   }).catch(error => {
-
     // リクエスト失敗の場合、エラーメッセージを表示
     switch(error.response && error.response.status) {
-      // エラーが404の場合、サーバーから帰ってきたエラーメッセージを表示
+    // エラーが404の場合、サーバーから帰ってきたエラーメッセージを表示
       case 404:
-        createErrorElement(error.message);
+         characterElement.after(createErrorElement(error.message));
         break;
         // ↑出ない場合、共通メッセージを表示
         default:
-          createErrorElement('エラーが発生しました。時間をおいて再度お試しください。');
+          characterElement.after(createErrorElement('404意外のエラーが発生しました。時間をおいて再度お試しください。'));
           break;
     }
   });

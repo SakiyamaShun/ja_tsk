@@ -21,10 +21,13 @@
 
 // 練習問題
 // 問題 1
-export const nameFn = () => {
+const nameFn = () => {
   return 'Gizumo taro';
 };
 
-export const calcFn = (num) => {
+const calcFn = (num) => {
   return num * 10;
-};
+}
+
+//一辺にエクスポートする処理
+export {nameFn, calcFn};
