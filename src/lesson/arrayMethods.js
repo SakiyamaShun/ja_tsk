@@ -11,27 +11,41 @@
 // const newArray = test02.map(val => val * 2);
 // console.log(newArray);
 
-
-
 // 練習問題
 // 問題 1
-const array = [
-  {
-    tag: 'p',
-    className: 'hoge',
-  },
-  {
-    tag: 'div',
-    className: 'fuga',
-  },
-  {
-    tag: 'h1',
-    className: 'piyo',
-  },
-];
-
-//'c-' + val.className
+// const array = [
+//   {
+//     tag: 'p',
+//     className: 'hoge',
+//   },
+//   {
+//     tag: 'div',
+//     className: 'fuga',
+//   },
+//   {
+//     tag: 'h1',
+//     className: 'piyo',
+//   },
+// ];
 
 //{}だと関数かオブジェクトの判断がつかないため()で囲って"({})"にすることでオブジェクトと判定される。
-const newArray02 = array.map(val => ({...val, className: 'c-' + val.className}));
-console.log(newArray02);
+// const newArray02 = array.map(val => ({...val, className: 'c-' + val.className}));
+// console.log(newArray02);
+
+// const newArray02 = array.map((value) => {
+
+//   console.log(value);
+//   return {...value, className: 'c-' + value.className};
+
+// });
+
+// console.log(newArray02);
+
+// valの中身に入っている要素をコンソールに出力
+
+const array = [1, 2, 3];
+const newArray = array.map(() => {
+  return 'Hello';
+});
+
+console.log(newArray);

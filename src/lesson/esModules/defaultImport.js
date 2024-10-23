@@ -17,5 +17,8 @@
 
 // 練習問題
 // 問題 2
-import defaultFn from './defaultExport.js';
-console.log(defaultFn())
+import test from './defaultExport.js';
+console.log(test());
+
+
+// インポート時に名前を変える

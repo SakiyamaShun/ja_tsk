@@ -34,8 +34,8 @@ const [test01, test02, test03] = arrayFn('テスト');
 console.log(test03);
 
 // 問題 2
-function objectFn() {
-  console.log(S5_Q2);
+function objectFn({name: companyName}) {
+  console.log(companyName);
 }
 
 const argObject = {
@@ -43,6 +43,20 @@ const argObject = {
   place: 'Shibuya',
 };
 
-const {name: S5_Q2} = argObject;
-
 objectFn(argObject);
+
+// アロー関数を使ってShibuyaを表示する処理
+const arrow = ({place: companyPlace}) => {
+  console.log(companyPlace);
+}
+
+arrow(argObject);
+
+// メモ：引数の確認
+// const test = (arg) => {
+//  console.log(arg);
+// };
+
+// test(6);
+
+// arg = 6

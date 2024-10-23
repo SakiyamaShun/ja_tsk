@@ -16,14 +16,12 @@
 
 // 練習問題
 // 問題 1
-function discountRateCalc(price = 4500, rate = 5) {
-  return price * (1 - rate * 0.01);
-}
-console.log(discountRateCalc()); 
-
-
-function discountRateCalc02(price = 6000, rate = 20) {
+function discountRateCalc(price , rate = 5) {
   return price * (1 - rate * 0.01);
 }
 
-console.log(discountRateCalc02()); 
+// 4500円の5%引き
+console.log(discountRateCalc(4500)); 
+
+// 6000円の20%引き
+console.log(discountRateCalc(6000, 20)); 

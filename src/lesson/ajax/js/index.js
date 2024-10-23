@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const characterElement = document.getElementById('character');
     // エラーメッセージを表示する要素
     const messageElement = document.getElementById('error-message');
-    // 入力したポケモンの図鑑番号を代入
+    // 入力した図鑑番号を代入
     const pictureBookId = formElement.elements['id'].value;
 
     // 表示の初期化
@@ -27,7 +27,8 @@ window.addEventListener('DOMContentLoaded', () => {
       characterElement.removeChild(characterElement.lastChild);
     }
 
-    // API通信(サーバーにリクエストを送る)成功時の処理
+    // APIリクエスト①(サーバーにリクエストを送る)：ポケモンの情報取得のための
+    // 成功時の処理
     axios.get(`https://pokeapi.co/api/v2/pokemon/${pictureBookId}`).then(({data}) => {
 
       // ポケモンの画像URLを代入
@@ -37,7 +38,7 @@ window.addEventListener('DOMContentLoaded', () => {
       // ※ポケモン名前が英語で帰ってくるため、日本語をレスポンスしてくれるサーバーにリクエストする。
       const jaRequestUrl = data.species.url;
 
-      // ポケモン名の日本語訳を取得するためにAPIリクエスト
+      // APIリクエスト②：ポケモン名の日本語訳を取得
       axios.get(jaRequestUrl).then(({data}) => {
 
         // ポケモン名の日本語訳
@@ -53,12 +54,12 @@ window.addEventListener('DOMContentLoaded', () => {
         // 作成したHTML要素をDOMに反映
         characterElement.appendChild(fragment);
 
-        // ポケモン名の日本語訳を取得するリクエストのエラー処理
+        // APIリクエスト②エラー処理
       }).catch(() => {
         formElement.after(createErrorElement('エラーが発生しました。時間をおいて再度お試しください。'));
       });
 
-      // ポケモンの情報を取得するリクエストのエラー処理
+      // APIリクエスト①のエラー処理
     }).catch(error => {
 
       // リクエストに失敗した場合はエラーメッセージを表示

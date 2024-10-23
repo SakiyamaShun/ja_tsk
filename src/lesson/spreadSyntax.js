@@ -36,6 +36,7 @@ const objectA = {
   version: 2,
 };
 objectA.routingLibrary = 'Vue Router';
+// objectBでroutingLibraryを追加するのもあり？
 
 const objectB = {
   version: 3,
